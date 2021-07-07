@@ -14,25 +14,25 @@ GBR_DATA = pd.read_csv(path.join(BASE_DIR, 'GreensboroCityRaceSexAge.csv'))
 PIT_DATA = pd.read_csv(path.join(BASE_DIR, 'PittsburghCityRaceSexAge.csv'))
 RAL_DATA = pd.read_csv(path.join(BASE_DIR, 'RaleighCityRaceSexAge.csv'))
 
-def get_total_pop(csv_file, city_name, state_name):
-    return csv_file[city_name +' city, ' + state_name + '!!2019 Estimate'][34]
+def get_total_pop(csv_file, city_name, state_name=None):
+    if(state_name == None):
+        return csv_file[city_name + '!!2019 Estimate'][34]
+    else:
+        return csv_file[city_name +' city, ' + state_name + '!!2019 Estimate'][34]
+
+#redo this with inheritance to save code:
+def get_demo_percentages(csv_file, city_name, state_name=None):
+    if(state_name == None):
+        return csv_file[city_name + '!!2019 Estimate'][38]
+    else:
+        return csv_file[city_name +' city, ' + state_name + '!!2019 Estimate'][38]
 
 ATL_population = get_total_pop(ATL_DATA, 'Atlanta', 'Georgia')
 ATX_population = get_total_pop(ATX_DATA, 'Austin', 'Texas')
 BOS_population = get_total_pop(BOS_DATA, 'Boston', 'Massachusetts')
 CHA_population = get_total_pop(CHA_DATA, 'Charlotte', 'North Carolina')
 DTX_population = get_total_pop(DTX_DATA, 'Dallas', 'Texas')
-DC_population = DC_DATA['District of Columbia!!2019 Estimate'][34]
+DC_population = get_total_pop(DC_DATA, 'District of Columbia')
 GBR_population = get_total_pop(GBR_DATA, 'Greensboro', 'North Carolina')
 PIT_population = get_total_pop(PIT_DATA, 'Pittsburgh', 'Pennsylvania')
 RAL_population = get_total_pop(RAL_DATA, 'Raleigh', 'North Carolina')
-
-print(ATL_population)
-print(ATX_population)
-print(BOS_population)
-print(CHA_population)
-print(DTX_population)
-print(DC_population)
-print(GBR_population)
-print(PIT_population)
-print(RAL_population)
