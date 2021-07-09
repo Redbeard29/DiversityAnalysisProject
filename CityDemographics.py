@@ -16,8 +16,8 @@ PIT_DATA = path.join(BASE_DIR, 'PittsburghCityRaceSexAge.csv')
 RAL_DATA = path.join(BASE_DIR, 'RaleighCityRaceSexAge.csv')
 
 #Define the DataFrame that we're writing our new data to
-city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black','AAPI', 'NativeAmerican','Other', 'TwoOrMoreRaces', 'BlackAndWhite'],
-    index=['Atlanta', 'Austin', 'Boston', 'Charlotte', 'Dallas', 'D.C.', 'Greensboro', 'Pittsburgh', 'Raleigh'])
+city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite'],
+    index=['Atlanta', 'Austin', 'Boston', 'Charlotte', 'Dallas', 'District of Columbia', 'Greensboro', 'Pittsburgh', 'Raleigh'])
 
 #Define dicts with file path, city and state for each location so that we can pass them in to all of our necessary functions. 
 #This formatting is required to read the census csv files:
@@ -33,8 +33,8 @@ PIT_dict = {'csv_file' : PIT_DATA, 'city_name': 'Pittsburgh', 'state_name': 'Pen
 RAL_dict = {'csv_file' : RAL_DATA, 'city_name': 'Raleigh', 'state_name': 'North Carolina'}
 
 dict_list = [ATL_dict, ATX_dict, BOS_dict, CHA_dict, DTX_dict, DC_dict, GBR_dict, PIT_dict, RAL_dict]
-nums_list = [34, 38, 39, 40, 58, 59, 60]
-cols_list = ['TotalPop', 'White','Black', 'NativeAmerican','Other', 'TwoOrMoreRaces', 'BlackAndWhite']
+nums_list = [34, 38, 39, 45, 40, 58, 59, 60]
+cols_list = ['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite']
 
 def get_data(dict_list, nums_list, cols_list):
 
@@ -59,42 +59,4 @@ def get_data(dict_list, nums_list, cols_list):
 
 get_data(dict_list, nums_list, cols_list)
 
-print(city_comparison_df)
-
-"""
-def percent_aapi(city_dict):
-
-    This function finds the percentage of the city's asian american and pacific islander residents in the associated csv file. 
-
-    csv_file = pd.read_csv(city_dict['csv_file'])
-    city_name = city_dict['city_name']
-    state_name = city_dict['state_name']
-
-    if(state_name == None):
-        asian_percentage = (csv_file[city_name + '!!2019 Estimate'][45])
-        asian_float = float(asian_percentage.replace('%', ''))
-        pi_percentage = (csv_file[city_name + '!!2019 Estimate'][53])
-        pi_float = float(pi_percentage.replace('%', ''))
-        aapi_total = asian_float + pi_float
-        return str(round(aapi_total, 2)) + '%'
-    else:
-        asian_percentage = (csv_file[city_name +' city, ' + state_name + '!!2019 Estimate'][45])
-        asian_float = float(asian_percentage.replace('%', ''))
-        pi_percentage = (csv_file[city_name +' city, ' + state_name + '!!2019 Estimate'][53])
-        pi_float = float(pi_percentage.replace('%', ''))
-        aapi_total = asian_float + pi_float
-        return str(round(aapi_total, 2))+ '%'
-
-ATL_aapi = percent_aapi(ATL_dict)
-ATX_aapi = percent_aapi(ATX_dict)
-BOS_aapi = percent_aapi(BOS_dict)
-CHA_aapi = percent_aapi(CHA_dict)
-DTX_aapi = percent_aapi(DTX_dict)
-DC_aapi = percent_aapi(DC_dict)
-GBR_aapi = percent_aapi(GBR_dict)
-PIT_aapi = percent_aapi(PIT_dict)
-RAL_aapi = percent_aapi(RAL_dict)
-
-city_comparison_df['AAPI'] = [ATL_aapi, ATX_aapi, BOS_aapi, CHA_aapi, DTX_aapi, DC_aapi, GBR_aapi, PIT_aapi, RAL_aapi]
-
-"""
+city_comparison_df.to_csv(path.join(BASE_DIR, 'CityComparison.csv'))
