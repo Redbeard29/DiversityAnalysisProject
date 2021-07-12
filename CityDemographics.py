@@ -96,3 +96,34 @@ city_comparison_df.to_csv(path.join(BASE_DIR, 'Analysis/CityComparison.csv'))
 read_atl_income = pd.read_csv(ATL_INCOME)
 
 print(read_atl_income['Atlanta city, Georgia!!Mean income (dollars)!!Estimate'][21])
+
+
+def col_calculator(col_dict):
+    total_col = col_dict['Total']
+
+#Define cost of living dictionaries to pass to col_calculator function:
+ATL_COL = {'Total' : 76.76, 'Rent' : 50.85, 'COLI Plus Rent' : 64.77, 'Groceries' : 78.2, 'Restaurant Price' : 68.66}
+ATX_COL = {'Total' : 63.84, 'Rent' : 54.47, 'COLI Plus Rent' : 59.51, 'Groceries' : 63.59, 'Restaurant Price' : 68.06}
+BAL_COL = {'Total' : 72.47, 'Rent' : 44.69, 'COLI Plus Rent' : 59.62, 'Groceries' : 70.62, 'Restaurant Price' : 73.92}
+BOS_COL = {'Total' : 88.67, 'Rent' : 77.37, 'COLI Plus Rent' : 83.44, 'Groceries' : 88.36, 'Restaurant Price' : 94.53}
+CHA_COL = {'Total' : 69.62, 'Rent' : 48.86, 'COLI Plus Rent' : 60.03, 'Groceries' : 66.76, 'Restaurant Price' : 68.8}
+DTX_COL = {'Total' : 67.68, 'Rent' : 50.13, 'COLI Plus Rent' : 59.57, 'Groceries' : 62.25, 'Restaurant Price' : 72.52}
+DC_COL = {'Total' : 83.91, 'Rent' : 78.24, 'COLI Plus Rent' : 81.29, 'Groceries' : 83.89, 'Restaurant Price' : 79.4}
+GBR_COL = {'Total' : None, 'Rent' : None, 'COLI Plus Rent' : None, 'Groceries' : None, 'Restaurant Price' : None}
+LA_COL = {'Total' : 79.6, 'Rent' : 74.08, 'COLI Plus Rent' : 77.05, 'Groceries' : 75.95, 'Restaurant Price' : 91.55}
+NYC_COL = {'Total' : 100, 'Rent' : 100, 'COLI Plus Rent' : 100, 'Groceries' : 100, 'Restaurant Price' : 100}
+PIT_COL = {'Total' : 78.46, 'Rent' : 39.82, 'COLI Plus Rent' : 60.6, 'Groceries' : 84.4, 'Restaurant Price' : 61.6}
+RAL_COL = {'Total' : 68.76, 'Rent' : 39.22, 'COLI Plus Rent' : 55.1, 'Groceries' : 70.8, 'Restaurant Price' : 70.47}
+SF_COL = {'Total' : 93.89, 'Rent' : 118.15, 'COLI Plus Rent' : 105.1, 'Groceries' : 96.89, 'Restaurant Price' : 94.37}
+SEA_COL = {'Total' : 86.38, 'Rent' : 71.02, 'COLI Plus Rent' : 79.28, 'Groceries' : 84.54, 'Restaurant Price' : 86.21}
+
+# rent = 1680
+# print(rent/39.82)
+# one_percent = 42.189854344550476
+# ny_rent = round(one_percent * 100, 2)
+# dc_rent = round(one_percent * 78.24, 2)
+# bal_rent = round(one_percent * 44.69, 2)
+# print(rent, ny_rent, dc_rent, bal_rent)
+
+
+
