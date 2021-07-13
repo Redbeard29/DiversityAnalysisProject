@@ -42,7 +42,7 @@ COL_INDEX = path.join(BASE_DIR, 'Income/CostOfLivingIndex.csv')
 
 
 #Define the DataFrame that we're writing our new data to
-city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite', 'AvgPerCapIncome'],
+city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite'],
     index=['Atlanta', 'Austin', 'Baltimore', 'Boston', 'Charlotte', 'Dallas', 'District of Columbia', 'Greensboro', 'Los Angeles', 'New York', 'Pittsburgh', 'Raleigh', 'San Francisco', 'Seattle'])
 
 #Define dicts with file path, city and state for each location so that we can pass them in to all of our necessary functions. 
@@ -64,8 +64,8 @@ SF_dict = {'demo_csv' : SF_DEMO, 'income_csv' : SF_INCOME, 'city_name': 'San Fra
 SEA_dict = {'demo_csv' : SEA_DEMO, 'income_csv' : SEA_INCOME, 'city_name': 'Seattle', 'state_name': 'Washington'}
 
 dict_list = [ATL_dict, ATX_dict, BAL_dict, BOS_dict, CHA_dict, DTX_dict, DC_dict, GBR_dict, LA_dict, NYC_dict, PIT_dict, RAL_dict, SF_dict, SEA_dict]
-nums_list = [34, 38, 39, 45, 40, 58, 59, 60, 22]
-cols_list = ['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite', 'AvgPerCapIncome']
+nums_list = [34, 38, 39, 45, 40, 58, 59, 60]
+cols_list = ['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite']
 
 def get_demographic_data(dict_list, nums_list, cols_list):
 
@@ -90,16 +90,14 @@ def get_demographic_data(dict_list, nums_list, cols_list):
 
 get_demographic_data(dict_list, nums_list, cols_list)
 
-print(city_comparison_df)
 city_comparison_df.to_csv(path.join(BASE_DIR, 'Analysis/CityComparison.csv'))
 
-read_atl_income = pd.read_csv(ATL_INCOME)
+# read_atl_income = pd.read_csv(ATL_INCOME)
 
-print(read_atl_income['Atlanta city, Georgia!!Mean income (dollars)!!Estimate'][21])
+# print(read_atl_income['Atlanta city, Georgia!!Mean income (dollars)!!Estimate'][21])
 
-
-def col_calculator(col_dict):
-    total_col = col_dict['Total']
+#def col_calculator(col_dict):
+    #total_col = col_dict['Total']
 
 #Define cost of living dictionaries to pass to col_calculator function:
 ATL_COL = {'Total' : 76.76, 'Rent' : 50.85, 'COLI Plus Rent' : 64.77, 'Groceries' : 78.2, 'Restaurant Price' : 68.66}
@@ -117,13 +115,12 @@ RAL_COL = {'Total' : 68.76, 'Rent' : 39.22, 'COLI Plus Rent' : 55.1, 'Groceries'
 SF_COL = {'Total' : 93.89, 'Rent' : 118.15, 'COLI Plus Rent' : 105.1, 'Groceries' : 96.89, 'Restaurant Price' : 94.37}
 SEA_COL = {'Total' : 86.38, 'Rent' : 71.02, 'COLI Plus Rent' : 79.28, 'Groceries' : 84.54, 'Restaurant Price' : 86.21}
 
-# rent = 1680
-# print(rent/39.82)
-# one_percent = 42.189854344550476
-# ny_rent = round(one_percent * 100, 2)
-# dc_rent = round(one_percent * 78.24, 2)
-# bal_rent = round(one_percent * 44.69, 2)
-# print(rent, ny_rent, dc_rent, bal_rent)
+one_percent_rent = 42.189854344550476
 
+DC_rent = round(one_percent_rent * 78.24, 2)
+DTX_rent = round(one_percent_rent * 50.13, 2)
+RAL_rent = round(one_percent_rent * 39.22, 2)
 
-
+print('D.C.: $' + str(DC_rent) + '/month')
+print('Dallas: $' + str(DTX_rent)  + '/month')
+print('Raleigh: $' + str(RAL_rent)  + '/month')
