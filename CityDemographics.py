@@ -121,6 +121,4 @@ DC_rent = round(one_percent_rent * 78.24, 2)
 DTX_rent = round(one_percent_rent * 50.13, 2)
 RAL_rent = round(one_percent_rent * 39.22, 2)
 
-print('D.C.: $' + str(DC_rent) + '/month')
-print('Dallas: $' + str(DTX_rent)  + '/month')
-print('Raleigh: $' + str(RAL_rent)  + '/month')
+print(city_comparison_df)
