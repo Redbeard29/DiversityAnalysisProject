@@ -22,20 +22,34 @@ SF_DEMO = path.join(BASE_DIR, 'Demographics/SanFranciscoCityRaceSexAge.csv')
 SEA_DEMO = path.join(BASE_DIR, 'Demographics/SeattleCityRaceSexAge.csv')
 
 #Income files:
-ATL_INCOME = path.join(BASE_DIR, 'Income/AtlantaCityMeanIncome.csv')
-ATX_INCOME = path.join(BASE_DIR, 'Income/AustinCityMeanIncome.csv')
-BAL_INCOME = path.join(BASE_DIR, 'Income/BaltimoreCityMeanIncome.csv')
-BOS_INCOME = path.join(BASE_DIR, 'Income/BostonCityMeanIncome.csv')
-CHA_INCOME = path.join(BASE_DIR, 'Income/CharlotteCityMeanIncome.csv')
-DTX_INCOME = path.join(BASE_DIR, 'Income/DallasCityMeanIncome.csv')
-DC_INCOME = path.join(BASE_DIR, 'Income/DCMeanIncome.csv')
-GBR_INCOME = path.join(BASE_DIR, 'Income/GreensboroCityMeanIncome.csv')
-LA_INCOME = path.join(BASE_DIR, 'Income/LosAngelesCityMeanIncome.csv')
-NY_INCOME = path.join(BASE_DIR, 'Income/NewYorkCityMeanIncome.csv')
-PIT_INCOME = path.join(BASE_DIR, 'Income/PittsburghCityMeanIncome.csv')
-RAL_INCOME = path.join(BASE_DIR, 'Income/RaleighCityMeanIncome.csv')
-SF_INCOME = path.join(BASE_DIR, 'Income/SanFranciscoCityMeanIncome.csv')
-SEA_INCOME = path.join(BASE_DIR, 'Income/SeattleCityMeanIncome.csv')
+ATL_MEAN_INCOME = path.join(BASE_DIR, 'Income/AtlantaCityMeanIncome.csv')
+ATL_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/AtlantaCityMedianIncome.csv')
+ATX_MEAN_INCOME = path.join(BASE_DIR, 'Income/AustinCityMeanIncome.csv')
+ATX_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/AustinCityMedianIncome.csv')
+BAL_MEAN_INCOME = path.join(BASE_DIR, 'Income/BaltimoreCityMeanIncome.csv')
+BAL_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/BaltimoreCityMedianIncome.csv')
+BOS_MEAN_INCOME = path.join(BASE_DIR, 'Income/BostonCityMeanIncome.csv')
+BOS_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/BostonCityMedianIncome.csv')
+CHA_MEAN_INCOME = path.join(BASE_DIR, 'Income/CharlotteCityMeanIncome.csv')
+CHA_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/CharlotteCityMedianIncome.csv')
+DTX_MEAN_INCOME = path.join(BASE_DIR, 'Income/DallasCityMeanIncome.csv')
+DTX_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/DallasCityMedianIncome.csv')
+DC_MEAN_INCOME = path.join(BASE_DIR, 'Income/DCMeanIncome.csv')
+DC_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/DCMedianIncome.csv')
+GBR_MEAN_INCOME = path.join(BASE_DIR, 'Income/GreensboroCityMeanIncome.csv')
+GBR_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/GreensboroCityMedianIncome.csv')
+LA_MEAN_INCOME = path.join(BASE_DIR, 'Income/LosAngelesCityMeanIncome.csv')
+LA_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/LosAngelesCityMedianIncome.csv')
+NY_MEAN_INCOME = path.join(BASE_DIR, 'Income/NewYorkCityMeanIncome.csv')
+NY_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/NewYorkCityMedianIncome.csv')
+PIT_MEAN_INCOME = path.join(BASE_DIR, 'Income/PittsburghCityMeanIncome.csv')
+PIT_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/PittsburghCityMedianIncome.csv')
+RAL_MEAN_INCOME = path.join(BASE_DIR, 'Income/RaleighCityMeanIncome.csv')
+RAL_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/RaleighCityMedianIncome.csv')
+SF_MEAN_INCOME = path.join(BASE_DIR, 'Income/SanFranciscoCityMeanIncome.csv')
+SF_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/SanFranciscoCityMedianIncome.csv')
+SEA_MEAN_INCOME = path.join(BASE_DIR, 'Income/SeattleCityMeanIncome.csv')
+SEA_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/SeattleCityMedianIncome.csv')
 
 #Cost of living index:
 COL_INDEX = path.join(BASE_DIR, 'Income/CostOfLivingIndex.csv')
@@ -48,20 +62,20 @@ city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian',
 #Define dicts with file path, city and state for each location so that we can pass them in to all of our necessary functions. 
 #This formatting is required to read the census csv files:
 
-ATL_dict = {'demo_csv' : ATL_DEMO, 'income_csv' : ATL_INCOME, 'city_name': 'Atlanta', 'state_name': 'Georgia'}
-ATX_dict = {'demo_csv' : ATX_DEMO, 'income_csv' : ATX_INCOME, 'city_name': 'Austin', 'state_name': 'Texas'}
-BAL_dict = {'demo_csv' : BAL_DEMO, 'income_csv' : BAL_INCOME, 'city_name': 'Baltimore', 'state_name': 'Maryland'}
-BOS_dict = {'demo_csv' : BOS_DEMO, 'income_csv' : BOS_INCOME, 'city_name': 'Boston', 'state_name': 'Massachusetts'}
-CHA_dict = {'demo_csv' : CHA_DEMO, 'income_csv' : CHA_INCOME, 'city_name': 'Charlotte', 'state_name': 'North Carolina'}
-DTX_dict = {'demo_csv' : DTX_DEMO, 'income_csv' : DTX_INCOME, 'city_name': 'Dallas', 'state_name': 'Texas'}
-DC_dict = {'demo_csv' : DC_DEMO, 'income_csv' : DC_INCOME, 'city_name': 'District of Columbia', 'state_name': None}
-GBR_dict= {'demo_csv' : GBR_DEMO, 'income_csv' : GBR_INCOME, 'city_name': 'Greensboro', 'state_name': 'North Carolina'}
-LA_dict = {'demo_csv' : LA_DEMO, 'income_csv' : LA_INCOME, 'city_name': 'Los Angeles', 'state_name': 'California'}
-NYC_dict = {'demo_csv' : NYC_DEMO, 'income_csv' : NY_INCOME, 'city_name': 'New York', 'state_name': 'New York'}
-PIT_dict = {'demo_csv' : PIT_DEMO, 'income_csv' : PIT_INCOME, 'city_name': 'Pittsburgh', 'state_name': 'Pennsylvania'}
-RAL_dict = {'demo_csv' : RAL_DEMO, 'income_csv' : RAL_INCOME, 'city_name': 'Raleigh', 'state_name': 'North Carolina'}
-SF_dict = {'demo_csv' : SF_DEMO, 'income_csv' : SF_INCOME, 'city_name': 'San Francisco', 'state_name': 'California'}
-SEA_dict = {'demo_csv' : SEA_DEMO, 'income_csv' : SEA_INCOME, 'city_name': 'Seattle', 'state_name': 'Washington'}
+ATL_dict = {'demo_csv' : ATL_DEMO, 'mean_csv' : ATL_MEAN_INCOME, 'median_csv' : ATL_MEDIAN_INCOME, 'city_name': 'Atlanta', 'state_name': 'Georgia'}
+ATX_dict = {'demo_csv' : ATX_DEMO, 'mean_csv' : ATX_MEAN_INCOME, 'median_csv' : ATX_MEDIAN_INCOME, 'city_name': 'Austin', 'state_name': 'Texas'}
+BAL_dict = {'demo_csv' : BAL_DEMO, 'mean_csv' : BAL_MEAN_INCOME, 'median_csv' : BAL_MEDIAN_INCOME, 'city_name': 'Baltimore', 'state_name': 'Maryland'}
+BOS_dict = {'demo_csv' : BOS_DEMO, 'mean_csv' : BOS_MEAN_INCOME, 'median_csv' : BOS_MEDIAN_INCOME, 'city_name': 'Boston', 'state_name': 'Massachusetts'}
+CHA_dict = {'demo_csv' : CHA_DEMO, 'mean_csv' : CHA_MEAN_INCOME, 'median_csv' : CHA_MEDIAN_INCOME, 'city_name': 'Charlotte', 'state_name': 'North Carolina'}
+DTX_dict = {'demo_csv' : DTX_DEMO, 'mean_csv' : DTX_MEAN_INCOME, 'median_csv' : DTX_MEDIAN_INCOME, 'city_name': 'Dallas', 'state_name': 'Texas'}
+DC_dict = {'demo_csv' : DC_DEMO, 'mean_csv' : DC_MEAN_INCOME, 'median_csv' : DC_MEDIAN_INCOME, 'city_name': 'District of Columbia', 'state_name': None}
+GBR_dict= {'demo_csv' : GBR_DEMO, 'mean_csv' : GBR_MEAN_INCOME, 'median_csv' : GBR_MEDIAN_INCOME, 'city_name': 'Greensboro', 'state_name': 'North Carolina'}
+LA_dict = {'demo_csv' : LA_DEMO, 'mean_csv' : LA_MEAN_INCOME, 'median_csv' : LA_MEDIAN_INCOME, 'city_name': 'Los Angeles', 'state_name': 'California'}
+NYC_dict = {'demo_csv' : NYC_DEMO, 'mean_csv' : NY_MEAN_INCOME, 'median_csv' : NY_MEDIAN_INCOME, 'city_name': 'New York', 'state_name': 'New York'}
+PIT_dict = {'demo_csv' : PIT_DEMO, 'mean_csv' : PIT_MEAN_INCOME, 'median_csv' : PIT_MEDIAN_INCOME, 'city_name': 'Pittsburgh', 'state_name': 'Pennsylvania'}
+RAL_dict = {'demo_csv' : RAL_DEMO, 'mean_csv' : RAL_MEAN_INCOME, 'median_csv' : RAL_MEDIAN_INCOME, 'city_name': 'Raleigh', 'state_name': 'North Carolina'}
+SF_dict = {'demo_csv' : SF_DEMO, 'mean_csv' : SF_MEAN_INCOME, 'median_csv' : SF_MEDIAN_INCOME, 'city_name': 'San Francisco', 'state_name': 'California'}
+SEA_dict = {'demo_csv' : SEA_DEMO, 'mean_csv' : SEA_MEAN_INCOME, 'median_csv' : SEA_MEDIAN_INCOME, 'city_name': 'Seattle', 'state_name': 'Washington'}
 
 dict_list = [ATL_dict, ATX_dict, BAL_dict, BOS_dict, CHA_dict, DTX_dict, DC_dict, GBR_dict, LA_dict, NYC_dict, PIT_dict, RAL_dict, SF_dict, SEA_dict]
 nums_list = [34, 38, 39, 45, 40, 58, 59, 60]
@@ -92,9 +106,9 @@ get_demographic_data(dict_list, nums_list, cols_list)
 
 city_comparison_df.to_csv(path.join(BASE_DIR, 'Analysis/CityComparison.csv'))
 
-# read_atl_income = pd.read_csv(ATL_INCOME)
+read_atl_income = pd.read_csv(ATL_MEAN_INCOME)
 
-# print(read_atl_income['Atlanta city, Georgia!!Mean income (dollars)!!Estimate'][21])
+print(read_atl_income['Atlanta city, Georgia!!Mean income (dollars)!!Estimate'][21])
 
 #def col_calculator(col_dict):
     #total_col = col_dict['Total']
@@ -121,4 +135,4 @@ DC_rent = round(one_percent_rent * 78.24, 2)
 DTX_rent = round(one_percent_rent * 50.13, 2)
 RAL_rent = round(one_percent_rent * 39.22, 2)
 
-print(city_comparison_df)
+# print(city_comparison_df)
