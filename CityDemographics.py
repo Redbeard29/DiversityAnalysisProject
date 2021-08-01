@@ -56,7 +56,7 @@ COL_INDEX = path.join(BASE_DIR, 'Income/CostOfLivingIndex.csv')
 
 
 #Define the DataFrame that we're writing our new data to
-city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite'],
+city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite', 'TotalPopMeanIncome'],
     index=['Atlanta', 'Austin', 'Baltimore', 'Boston', 'Charlotte', 'Dallas', 'District of Columbia', 'Greensboro', 'Los Angeles', 'New York', 'Pittsburgh', 'Raleigh', 'San Francisco', 'Seattle'])
 
 #Define dicts with file path, city and state for each location so that we can pass them in to all of our necessary functions. 
@@ -81,6 +81,8 @@ dict_list = [ATL_dict, ATX_dict, BAL_dict, BOS_dict, CHA_dict, DTX_dict, DC_dict
 nums_list = [34, 38, 39, 45, 40, 58, 59, 60]
 cols_list = ['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite']
 
+#Add demographic data to csv:
+
 def get_demographic_data(dict_list, nums_list, cols_list):
 
     for x in range(len(dict_list)):
@@ -104,11 +106,28 @@ def get_demographic_data(dict_list, nums_list, cols_list):
 
 get_demographic_data(dict_list, nums_list, cols_list)
 
-city_comparison_df.to_csv(path.join(BASE_DIR, 'Analysis/CityComparison.csv'))
 
 read_atl_income = pd.read_csv(ATL_MEAN_INCOME)
 
 print(read_atl_income['Atlanta city, Georgia!!Mean income (dollars)!!Estimate'][21])
+
+def get_economic_data(dict_list):
+
+    for x in range(len(dict_list)):
+        city_dict = dict_list.pop()
+        csv_file = pd.read_csv(city_dict['mean_csv'])
+        city_name = city_dict['city_name']
+        state_name = city_dict['state_name']
+
+        print(city_dict)
+
+        if(state_name == None):
+            city_comparison_df['TotalPopMeanIncome'][city_name] = csv_file[city_name + '!!Mean income (dollars)!!Estimate'][21]
+
+        else:
+            city_comparison_df['TotalPopMeanIncome'][city_name] = csv_file[city_name +' city, ' + state_name + '!!Mean income (dollars)!!Estimate'][21]
+
+get_economic_data(dict_list)
 
 #def col_calculator(col_dict):
     #total_col = col_dict['Total']
@@ -129,10 +148,12 @@ RAL_COL = {'Total' : 68.76, 'Rent' : 39.22, 'COLI Plus Rent' : 55.1, 'Groceries'
 SF_COL = {'Total' : 93.89, 'Rent' : 118.15, 'COLI Plus Rent' : 105.1, 'Groceries' : 96.89, 'Restaurant Price' : 94.37}
 SEA_COL = {'Total' : 86.38, 'Rent' : 71.02, 'COLI Plus Rent' : 79.28, 'Groceries' : 84.54, 'Restaurant Price' : 86.21}
 
-one_percent_rent = 42.189854344550476
+# one_percent_rent = 42.189854344550476
 
-DC_rent = round(one_percent_rent * 78.24, 2)
-DTX_rent = round(one_percent_rent * 50.13, 2)
-RAL_rent = round(one_percent_rent * 39.22, 2)
+# DC_rent = round(one_percent_rent * 78.24, 2)
+# DTX_rent = round(one_percent_rent * 50.13, 2)
+# RAL_rent = round(one_percent_rent * 39.22, 2)
 
-# print(city_comparison_df)
+city_comparison_df.to_csv(path.join(BASE_DIR, 'Analysis/CityComparison.csv'))
+
+print(city_comparison_df)
