@@ -56,7 +56,7 @@ SEA_MEDIAN_INCOME = path.join(BASE_DIR, 'Income/SeattleCityMedianIncome.csv')
 
 
 #Define the DataFrame that we're writing our new data to
-city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite', 'MeanIncomeHousehold', 'MeanIncomePerCap', 'MIPCWhite', 'MIPCBlack', 'MIPCWhitePercOfTot', 'MIPCBlackPercOfTot'],
+city_comparison_df = pd.DataFrame(columns=['TotalPop', 'White','Black', 'Asian', 'NativeAm', 'Other', 'TwoOrMoreRaces', 'BlackAndWhite', 'MeanIncomeHousehold', 'MeanIncomePerCap', 'MIPCWhite', 'MIPCBlack', 'MIPCWhitePercOfTot', 'MIPCBlackPercOfTot', 'MedianIncomeHousehold', 'MedHoWhite', 'MedHoBlack', 'MedHoWhitePercOfTot', 'MedHoBlackPercOfTot'],
     index=['Atlanta', 'Austin', 'Baltimore', 'Boston', 'Charlotte', 'Dallas', 'District of Columbia', 'Greensboro', 'Los Angeles', 'New York', 'Pittsburgh', 'Raleigh', 'San Francisco', 'Seattle'])
 
 #Define dicts with file paths for each csv, city and state for each location so that we can pass them in to all of our necessary functions. 
@@ -106,12 +106,13 @@ def get_demographic_data(dict_list):
             col_IDX += 1
             num_IDX += 1
     
-        get_economic_data(city_dict)
+        get_mean_economic_data(city_dict)
+        get_median_economic_data(city_dict)
 
 
-def get_economic_data(city_dict):
+def get_mean_economic_data(city_dict):
 
-    nums_list = [1, 21, 23, 24, 0, 0]
+    nums_list = [1, 21, 23, 24, [23, 21], [24,21]]
     cols_list = ['MeanIncomeHousehold', 'MeanIncomePerCap', 'MIPCWhite', 'MIPCBlack', 'MIPCWhitePercOfTot', 'MIPCBlackPercOfTot']
 
     for x in range(len(city_dict)):
@@ -125,25 +126,91 @@ def get_economic_data(city_dict):
 
         while(num_IDX < len(nums_list) and col_IDX < len(cols_list)):
 
-            current_col = [cols_list[col_IDX]]
+            if [cols_list[col_IDX]] == ['MIPCWhitePercOfTot']:
+                percentage_nums_list = nums_list[num_IDX]
+                calculate_percentage(city_dict, percentage_nums_list, 'MIPCWhitePercOfTot', 'mean')
+            
+            elif [cols_list[col_IDX]] == ['MIPCBlackPercOfTot']:
+                percentage_nums_list = nums_list[num_IDX]
+                calculate_percentage(city_dict, percentage_nums_list, 'MIPCBlackPercOfTot', 'mean')
 
-            if current_col == (['MIPCWhitePercOfTot'] or ['MIPCBlackPercOfTot']):
-                calculate_percentage(city_dict)
-
-            if(state_name == None):
-                city_comparison_df[cols_list[col_IDX]][city_name] = csv_file[city_name + '!!Mean income (dollars)!!Estimate'][nums_list[num_IDX]]
+            elif(state_name == None):
+                city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name + '!!Mean income (dollars)!!Estimate'][nums_list[num_IDX]])
 
             else:
-                city_comparison_df[cols_list[col_IDX]][city_name] = csv_file[city_name +' city, ' + state_name + '!!Mean income (dollars)!!Estimate'][nums_list[num_IDX]]
+                city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name +' city, ' + state_name + '!!Mean income (dollars)!!Estimate'][nums_list[num_IDX]])
 
             col_IDX += 1
             num_IDX += 1
 
-def calculate_percentage(city_dict):
-    csv_file = pd.read_csv(city_dict['mean_csv'])
-    city_name = city_dict['city_name']
-    state_name = city_dict['state_name']
-    print(city_dict)
+def get_median_economic_data(city_dict):
+
+    nums_list = [1, 3, 4, [3, 1], [4, 1]]
+    cols_list = ['MedianIncomeHousehold', 'MedHoWhite', 'MedHoBlack', 'MedHoWhitePercOfTot', 'MedHoBlackPercOfTot']
+
+    for x in range(len(city_dict)):
+        csv_file = pd.read_csv(city_dict['median_csv'])
+        city_name = city_dict['city_name']
+        state_name = city_dict['state_name']
+
+        num_IDX = 0
+        col_IDX = 0
+
+        while(num_IDX < len(nums_list) and col_IDX < len(cols_list)):
+
+            if [cols_list[col_IDX]] == ['MedHoWhitePercOfTot']:
+                percentage_nums_list = nums_list[num_IDX]
+                calculate_percentage(city_dict, percentage_nums_list, 'MedHoWhitePercOfTot', 'median')
+            
+            elif [cols_list[col_IDX]] == ['MedHoBlackPercOfTot']:
+                percentage_nums_list = nums_list[num_IDX]
+                calculate_percentage(city_dict, percentage_nums_list, 'MedHoBlackPercOfTot', 'median')
+
+            elif(state_name == None):
+                city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name + '!!Median income (dollars)!!Estimate'][nums_list[num_IDX]])
+
+            else:
+                city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name +' city, ' + state_name + '!!Median income (dollars)!!Estimate'][nums_list[num_IDX]])
+
+            col_IDX += 1
+            num_IDX += 1
+
+
+def calculate_percentage(city_dict, percentage_nums_list, column_name, csv_type):
+    
+    for x in range(len(city_dict)):
+        csv_file = pd.read_csv(city_dict[csv_type + '_csv'])
+        city_name = city_dict['city_name']
+        state_name = city_dict['state_name']
+
+        if(csv_type == 'mean'):
+            if(state_name == None):
+                first_mipc = csv_file[city_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[0]]
+                first_mipc = first_mipc.replace(',', '')
+                total_mipc = csv_file[city_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[1]]
+                total_mipc = total_mipc.replace(',', '')
+            else:
+                first_mipc = csv_file[city_name +' city, ' + state_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[0]]
+                first_mipc = first_mipc.replace(',', '')
+                total_mipc = csv_file[city_name +' city, ' + state_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[1]]
+                total_mipc = total_mipc.replace(',', '')
+
+            city_comparison_df[column_name][city_name] = str(round((int(first_mipc) / int(total_mipc) * 100), 2)) + '%'
+
+
+        else:
+            if(state_name == None):
+                first_mipc = csv_file[city_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[0]]
+                first_mipc = first_mipc.replace(',', '')
+                total_mipc = csv_file[city_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[1]]
+                total_mipc = total_mipc.replace(',', '')
+            else:
+                first_mipc = csv_file[city_name +' city, ' + state_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[0]]
+                first_mipc = first_mipc.replace(',', '')
+                total_mipc = csv_file[city_name +' city, ' + state_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[1]]
+                total_mipc = total_mipc.replace(',', '')
+
+            city_comparison_df[column_name][city_name] = str(round((int(first_mipc) / int(total_mipc) * 100), 2)) + '%'
 
 
 get_demographic_data(dict_list)
