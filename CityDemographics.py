@@ -119,7 +119,9 @@ def get_demographic_data(dict_list):
 
         while(num_IDX < len(nums_list) and col_IDX < len(cols_list)):
 
-            if(state_name == None):
+            if city_name == 'Southfield' or city_name == 'Detroit':
+                city_comparison_df[cols_list[col_IDX]][city_name] = csv_file[city_name +' city, ' + state_name + '!!Estimate'][nums_list[num_IDX]]
+            elif(state_name == None):
                 city_comparison_df[cols_list[col_IDX]][city_name] = csv_file[city_name + '!!2019 Estimate'][nums_list[num_IDX]]
             else:
                 city_comparison_df[cols_list[col_IDX]][city_name] = csv_file[city_name +' city, ' + state_name + '!!2019 Estimate'][nums_list[num_IDX]]
@@ -156,6 +158,9 @@ def get_mean_economic_data(city_dict):
                 percentage_nums_list = nums_list[num_IDX]
                 calculate_percentage(city_dict, percentage_nums_list, 'MIPCBlackPercOfTot', 'mean')
 
+            if city_name == 'Southfield':
+                city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name +' city, Oakland County, ' + state_name + '!!Mean income (dollars)!!Estimate'][nums_list[num_IDX]])
+
             elif(state_name == None):
                 city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name + '!!Mean income (dollars)!!Estimate'][nums_list[num_IDX]])
 
@@ -188,6 +193,9 @@ def get_median_economic_data(city_dict):
                 percentage_nums_list = nums_list[num_IDX]
                 calculate_percentage(city_dict, percentage_nums_list, 'MedHoBlackPercOfTot', 'median')
 
+            if city_name == 'Southfield':
+                city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name +' city, Oakland County, ' + state_name + '!!Median income (dollars)!!Estimate'][nums_list[num_IDX]])
+
             elif(state_name == None):
                 city_comparison_df[cols_list[col_IDX]][city_name] = '$' + (csv_file[city_name + '!!Median income (dollars)!!Estimate'][nums_list[num_IDX]])
 
@@ -206,7 +214,13 @@ def calculate_percentage(city_dict, percentage_nums_list, column_name, csv_type)
         state_name = city_dict['state_name']
 
         if(csv_type == 'mean'):
-            if(state_name == None):
+
+            if city_name == 'Southfield':
+                first_mipc = csv_file[city_name +' city, Oakland County, ' + state_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[0]]
+                first_mipc = first_mipc.replace(',', '')
+                total_mipc = csv_file[city_name +' city, Oakland County, ' + state_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[1]]
+                total_mipc = total_mipc.replace(',', '')
+            elif(state_name == None):
                 first_mipc = csv_file[city_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[0]]
                 first_mipc = first_mipc.replace(',', '')
                 total_mipc = csv_file[city_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[1]]
@@ -217,9 +231,14 @@ def calculate_percentage(city_dict, percentage_nums_list, column_name, csv_type)
                 total_mipc = csv_file[city_name +' city, ' + state_name + '!!Mean income (dollars)!!Estimate'][percentage_nums_list[1]]
                 total_mipc = total_mipc.replace(',', '')
 
-
         else:
-            if(state_name == None):
+            if city_name == 'Southfield':
+                first_mipc = csv_file[city_name +' city, Oakland County, ' + state_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[0]]
+                first_mipc = first_mipc.replace(',', '')
+                total_mipc = csv_file[city_name +' city, Oakland County, ' + state_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[1]]
+                total_mipc = total_mipc.replace(',', '')
+
+            elif(state_name == None):
                 first_mipc = csv_file[city_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[0]]
                 first_mipc = first_mipc.replace(',', '')
                 total_mipc = csv_file[city_name + '!!Median income (dollars)!!Estimate'][percentage_nums_list[1]]
@@ -250,6 +269,6 @@ get_demographic_data(dict_list)
 
 city_comparison_df.to_csv(path.join(BASE_DIR, 'Analysis/CityComparison.csv'))
 
-print(city_comparison_df[['MedianIncomeHousehold', 'MedHoBlack', 'MedHoBlackPercOfTot']].sort_values('MedHoBlackPercOfTot', ascending=False))
+print(city_comparison_df[['MedianIncomeHousehold', 'MedHoBlack', 'MedHoBlackPercOfTot']])
 
 # print(90005/54414)
